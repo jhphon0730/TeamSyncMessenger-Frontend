@@ -1,8 +1,12 @@
+import { Route, Routes } from "react-router-dom"
+
+import ConnectionCheckPage from "./pages/ConnectionCheckPage"
+
 const App = () => {
     return (
-        <div id="App">
-          Hello world
-        </div>
+      <Routes>
+        <Route path="/" element={<ConnectionCheckPage />} />
+      </Routes>
     )
 }
 
