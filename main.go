@@ -1,6 +1,7 @@
 package main
 
 import (
+	"changeme/pkg/client"
 	"embed"
 	"log"
 
@@ -14,10 +15,10 @@ import (
 var assets embed.FS
 
 func main() {
-	// Create an instance of the app structure
 	app := NewApp()
 
-	// Create application with options
+	client := client.NewClient(&app.ctx)
+
 	err := wails.Run(&options.App{
 		Title:  "TeamSyncMessenger",
 		Width:  1024,
@@ -29,6 +30,7 @@ func main() {
 		OnStartup:        app.startup,
 		Bind: []interface{}{
 			app,
+			client,
 		},
 		Windows: &windows.Options{
 			WindowIsTranslucent:  true,
