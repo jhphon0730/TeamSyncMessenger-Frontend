@@ -81,7 +81,7 @@ func (c *Client) sendMessage(message messagetype.Message) error {
 	return err
 }
 
-func (c *Client) disconnect(Content interface{}) {
+func (c *Client) Disconnect(Content interface{}) {
 	message := messagetype.Message{
 		Type:    "disconnect",
 		Content: Content,
