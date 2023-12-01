@@ -93,6 +93,10 @@ func (c *Client) Disconnect(ctx context.Context) {
 	if err != nil {
 		log.Fatalln("Failed to send disconnect message: ", err.Error())
 	}
+
+	if c.Conn != nil {
+		c.Conn.Close()
+	}
 }
 
 func (c *Client) receiveMessages(messages chan messagetype.Message) {
