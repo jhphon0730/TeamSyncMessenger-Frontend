@@ -14,7 +14,8 @@ import (
 type Client struct {
 	ctx *context.Context
 
-	Conn net.Conn
+	Conn     net.Conn
+	clientIP string
 }
 
 func NewClient(ctx *context.Context) *Client {
@@ -23,7 +24,7 @@ func NewClient(ctx *context.Context) *Client {
 	}
 }
 
-func (s *Client) server(messages chan messagetype.Message) {
+func (c *Client) server(messages chan messagetype.Message) {
 	for {
 		msg := <-messages
 		switch msg.Type {
@@ -31,7 +32,7 @@ func (s *Client) server(messages chan messagetype.Message) {
 			var message messagetype.ConnectSuccessMessage
 
 			json.Unmarshal(msg.Buffer[:msg.ByfferLength], &message)
-			log.Println(message)
+			c.clientIP = message.Content
 		}
 	}
 }
@@ -81,10 +82,10 @@ func (c *Client) sendMessage(message messagetype.Message) error {
 	return err
 }
 
-func (c *Client) Disconnect(Content interface{}) {
+func (c *Client) Disconnect(ctx context.Context) {
 	message := messagetype.Message{
 		Type:    "disconnect",
-		Content: Content,
+		Content: c.clientIP,
 	}
 
 	// Send disconnect message to the server
