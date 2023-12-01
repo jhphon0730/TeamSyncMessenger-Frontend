@@ -4,11 +4,15 @@ const cookie_max_age: number = 24 * 60 * 60 * 1000
 const cookies: Cookies = new Cookies();
 
 interface IUserLoginCookies {
+  id: number
   token: string
   username: string
 }
 
-export const SetCookie = async ({token, username}: IUserLoginCookies) => {
+export const SetUserCookie = async ({id, token, username}: IUserLoginCookies) => {
+  cookies.set("id", id, {
+    maxAge: cookie_max_age,
+  });
   cookies.set("token", token, {
     maxAge: cookie_max_age,
   });
@@ -17,8 +21,14 @@ export const SetCookie = async ({token, username}: IUserLoginCookies) => {
   });
 }
 
-export const GetCookie = async (): Promise<IUserLoginCookies> => {
-  const { token, username } = await cookies.getAll();
+export const GetUserCookie = async (): Promise<IUserLoginCookies> => {
+  const { id, token, username } = await cookies.getAll();
 
-  return { token, username }
+  return { id, token, username }
+}
+
+export const RemoveUserCookie = async (): Promise<void> => {
+  cookies.remove("id")
+  cookies.remove("token")
+  cookies.remove("username")
 }
