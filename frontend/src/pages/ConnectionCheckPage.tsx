@@ -1,10 +1,12 @@
 import { Fragment, useEffect, useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import Loading from "../components/common/Loading"
 
 import { RunClient } from "../../wailsjs/go/client/Client"
 
 const ConnectionCheckPage = () => {
+  const navigate = useNavigate()  
   const [isConnected, setIsConnected] = useState(false);
    
   const intervalIdRef = useRef<number | null>(null);
@@ -20,21 +22,19 @@ const ConnectionCheckPage = () => {
   useEffect(() => {
     if (isConnected) {
       clearInterval(intervalIdRef.current!);
+      navigate("/user/login")
     }
   }, [isConnected]);
 
   const ConnectToServerHandler = async (): Promise<void> => {
     const connectState = await RunClient()
     setIsConnected(() => connectState)
-    console.log("Connect");
-    
     return
   }
 
   return (
     <Fragment>
-      {  }
-      <Loading commend="서버 연결중"/>
+      { !isConnected && <Loading commend="서버 연결중"/> }
     </Fragment>
   )
 }

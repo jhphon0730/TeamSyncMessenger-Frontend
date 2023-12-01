@@ -5,7 +5,12 @@ import ConnectionCheckPage from "./pages/ConnectionCheckPage"
 const App = () => {
     return (
       <Routes>
-        <Route path="/" element={<ConnectionCheckPage />} />
+        <Route path="/">
+          <Route index element={<ConnectionCheckPage />} />
+          <Route path="/user">
+            <Route path="login" element={<>Hello World</>} />
+          </Route>
+        </Route>
       </Routes>
     )
 }
