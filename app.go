@@ -20,7 +20,7 @@ func NewApp() *App {
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
-	err := global.SetServerIP("192.168.0.48:9090")
+	err := global.SetServerIP("localhost:9090")
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
