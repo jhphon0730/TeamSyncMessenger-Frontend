@@ -15,6 +15,9 @@ import (
 var assets embed.FS
 
 func main() {
+	// TODO: flags
+	// - Add Server IP & PORT
+
 	app := NewApp()
 
 	client := client.NewClient(&app.ctx)
