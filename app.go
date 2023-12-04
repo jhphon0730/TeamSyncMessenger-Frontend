@@ -3,8 +3,10 @@ package main
 import (
 	"changeme/pkg/global"
 	"context"
-	"fmt"
+	"io/ioutil"
 	"log"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct
@@ -26,6 +28,22 @@ func (a *App) startup(ctx context.Context) {
 	}
 }
 
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+// Custom Error Dialog
+func (a *App) CustomErrorDialog(errorMessage string) {
+	fileBytes, _ := ioutil.ReadFile("build/appicon.png")
+	runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
+		Title:   "경고",
+		Message: errorMessage,
+		Icon:    fileBytes,
+	})
+}
+
+// Custom Info Dialog
+func (a *App) CustomInfoDialog(InfoMessage string) {
+	fileBytes, _ := ioutil.ReadFile("build/appicon.png")
+	runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
+		Title:   "정보",
+		Message: InfoMessage,
+		Icon:    fileBytes,
+	})
 }

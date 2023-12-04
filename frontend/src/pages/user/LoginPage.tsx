@@ -2,6 +2,8 @@ import React from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
+import { CustomErrorDialog, CustomInfoDialog } from "../../../wailsjs/go/main/App"
+
 import { userModels } from "../../models/user/user.models";
 import styles from "../../styles/pages/user/login.module.css"
 import logo from "../../assets/images/logo.png"
@@ -25,7 +27,10 @@ const LoginPage = () => {
   const SubmitLoginHandler = ( event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    console.log(loginState);
+    if (loginState.username.trim().length == 0 || loginState.password.trim().length == 0) {
+      CustomErrorDialog("모든 정보를 입력하세요.")
+      return
+    }
   };
 
   return (
