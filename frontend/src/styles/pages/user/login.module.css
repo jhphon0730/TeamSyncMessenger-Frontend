@@ -1,4 +1,4 @@
-.telegram_login_container {
+.login_container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,16 +6,16 @@
   height: 100vh;
 }
 
-.telegram_login_content {
+.login_content {
   text-align: center;
 }
 
-.telegram_login_text {
+.login_text {
   font-size: 1.2em;
   margin-bottom: 20px;
 }
 
-.telegram_login_button {
+.login_button {
   background-color: #0088cc;
   color: #fff;
   padding: 10px 20px;
@@ -23,4 +23,45 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.input:focus {
+  border-color: #0088cc;
+  outline: none;
+}
+
+.signup_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.signup_link {
+  text-decoration: none;
+  color: #0088cc;
+  font-size: 0.9em;
+  margin-top: 5px;
+  transition: color 0.3s;
+}
+
+.signup_link:hover {
+  color: #005580; /* hover 시 색 변경 */
 }
