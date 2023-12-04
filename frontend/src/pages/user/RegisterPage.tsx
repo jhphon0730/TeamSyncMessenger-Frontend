@@ -12,7 +12,7 @@ const RegisterPage = () => {
 
   return (
     <Fragment>
-      <div className={styles.login_container}>
+      <form className={styles.login_container}>
         <div className={styles.login_content}>
           <img
             src={logo}
@@ -44,7 +44,7 @@ const RegisterPage = () => {
               className={styles.input}
             />
           </div>
-          <button className={styles.login_button} onClick={handleSignUp}>
+          <button type="submit" className={styles.login_button} onClick={handleSignUp}>
             회원가입
           </button>
           <div className={styles.signup_container}>
@@ -54,7 +54,7 @@ const RegisterPage = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </form>
     </Fragment>
   );
 };

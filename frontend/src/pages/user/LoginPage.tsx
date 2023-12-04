@@ -2,17 +2,35 @@ import React from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
+import { userModels } from "../../models/user/user.models";
 import styles from "../../styles/pages/user/login.module.css"
 import logo from "../../assets/images/logo.png"
 
-const LoginPage: React.FC = () => {
-  const handleLogin = () => {
-    console.log("로그인 버튼이 클릭되었습니다.");
+const LoginPage = () => {
+  const [loginState, setLoginState] = React.useState<userModels.LoginUserModel>({
+    username: "",
+    password: "",
+  })
+
+  const ChangeLoginStateHandler = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+    const { name, value } = event.target;
+
+    setLoginState((prev) => {
+      return {
+        ...prev, [name]: value 
+      }
+    });
+  };
+
+  const SubmitLoginHandler = ( event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    console.log(loginState);
   };
 
   return (
     <Fragment>
-      <div className={styles.login_container}>
+      <form className={styles.login_container} onSubmit={SubmitLoginHandler}>
         <div className={styles.login_content}>
           <img
             src={logo}
@@ -26,15 +44,21 @@ const LoginPage: React.FC = () => {
             <input
               type="text"
               placeholder="사용자명"
+              name="username"
               className={styles.input}
+              value={loginState.username}
+              onChange={ChangeLoginStateHandler}
             />
             <input
               type="password"
               placeholder="비밀번호"
+              name="password"
               className={styles.input}
+              value={loginState.password}
+              onChange={ChangeLoginStateHandler}
             />
           </div>
-          <button className={styles.login_button} onClick={handleLogin}>
+          <button type="submit" className={styles.login_button}>
             로그인
           </button>
           <div className={styles.signup_container}>
@@ -44,7 +68,7 @@ const LoginPage: React.FC = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </form>
     </Fragment>
   );
 };
