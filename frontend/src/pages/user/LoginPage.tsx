@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "../../styles/pages/user/login.module.css"
+import logo from "../../assets/images/logo.png"
 
 const LoginPage: React.FC = () => {
   const handleLogin = () => {
@@ -13,6 +14,11 @@ const LoginPage: React.FC = () => {
     <Fragment>
       <div className={styles.login_container}>
         <div className={styles.login_content}>
+          <img
+            src={logo}
+            alt="logo"
+            className={styles.logo}
+          />
           <p className={styles.login_text}>
             로그인하세요.
           </p>
