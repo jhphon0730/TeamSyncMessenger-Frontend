@@ -24,14 +24,14 @@ func (i *Initial) InitialGatewayPage() {
 }
 
 func (i *Initial) InitialLoginPage() {
-	runtime.WindowSetMinSize(*i.ctx, 355, 555)
-	runtime.WindowSetSize(*i.ctx, 355, 555)
+	runtime.WindowSetMinSize(*i.ctx, 355, 600)
+	runtime.WindowSetSize(*i.ctx, 355, 600)
 	runtime.WindowCenter(*i.ctx)
 	runtime.WindowShow(*i.ctx)
 }
 
 func (i *Initial) InitialRegisterPage() {
-	runtime.WindowSetMinSize(*i.ctx, 355, 555)
+	runtime.WindowSetMinSize(*i.ctx, 355, 640)
 	runtime.WindowSetSize(*i.ctx, 355, 640)
 	runtime.WindowCenter(*i.ctx)
 	runtime.WindowShow(*i.ctx)

@@ -12,17 +12,21 @@ import (
 // App struct
 type App struct {
 	ctx context.Context
+
+	serverIP string
 }
 
 // NewApp creates a new App application struct
-func NewApp() *App {
-	return &App{}
+func NewApp(serverIP string) *App {
+	return &App{
+		serverIP: serverIP,
+	}
 }
 
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
-	err := global.SetServerIP("192.168.0.48:9090")
+	err := global.SetServerIP(a.serverIP)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}

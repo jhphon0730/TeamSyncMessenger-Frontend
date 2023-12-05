@@ -4,6 +4,7 @@ import (
 	"changeme/pkg/client"
 	"changeme/pkg/initial"
 	"embed"
+	"flag"
 	"log"
 
 	"github.com/wailsapp/wails/v2"
@@ -18,8 +19,11 @@ var assets embed.FS
 func main() {
 	// TODO: flags
 	// - Add Server IP & PORT
+	ServerIP := flag.String("server", "192.168.0.48:9090", "string")
 
-	app := NewApp()
+	flag.Parse()
+
+	app := NewApp(*ServerIP)
 
 	client := client.NewClient(&app.ctx)
 	initial := initial.NewInitial(&app.ctx)

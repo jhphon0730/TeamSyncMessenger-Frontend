@@ -2,18 +2,22 @@ import {createRoot} from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
+import { Provider } from 'react-redux'
+import store from './store';
+import { CookiesProvider } from 'react-cookie'
 
 import './styles/style.css'
-import { CookiesProvider } from 'react-cookie'
 
 const container = document.getElementById('root')
 
 const root = createRoot(container!)
 
 root.render(
-  <BrowserRouter>
-    <CookiesProvider>
-      <App/>
-    </CookiesProvider>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <CookiesProvider>
+        <App/>
+      </CookiesProvider>
+    </BrowserRouter>
+  </Provider>
 )
