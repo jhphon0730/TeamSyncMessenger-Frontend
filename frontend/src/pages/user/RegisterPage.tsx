@@ -2,6 +2,8 @@ import React from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
+import { InitialRegisterPage } from "../../../wailsjs/go/initial/Initial"
+
 import { userModels } from "../../models/user/user.models";
 import styles from "../../styles/pages/user/login.module.css"
 import logo from "../../assets/images/logo.png"
@@ -13,6 +15,10 @@ const RegisterPage = () => {
     password_check: "",
     email: "",
   })
+
+  React.useEffect(() => {
+    InitialRegisterPage()
+  }, [])
 
   const ChangeRegisterStateHandler = ( event: React.ChangeEvent<HTMLInputElement> ) => {
     const { name, value } = event.target;

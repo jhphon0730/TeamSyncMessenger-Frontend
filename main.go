@@ -2,6 +2,7 @@ package main
 
 import (
 	"changeme/pkg/client"
+	"changeme/pkg/initial"
 	"embed"
 	"log"
 
@@ -21,6 +22,7 @@ func main() {
 	app := NewApp()
 
 	client := client.NewClient(&app.ctx)
+	initial := initial.NewInitial(&app.ctx)
 
 	err := wails.Run(&options.App{
 		Title:  "TeamSyncMessenger",
@@ -35,6 +37,7 @@ func main() {
 		Bind: []interface{}{
 			app,
 			client,
+			initial,
 		},
 		Windows: &windows.Options{
 			WindowIsTranslucent:  true,

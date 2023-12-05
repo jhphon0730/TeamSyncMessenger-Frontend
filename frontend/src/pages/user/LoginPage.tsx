@@ -2,7 +2,8 @@ import React from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-import { CustomErrorDialog, CustomInfoDialog } from "../../../wailsjs/go/main/App"
+import { CustomErrorDialog } from "../../../wailsjs/go/main/App"
+import { InitialLoginPage } from "../../../wailsjs/go/initial/Initial"
 
 import { userModels } from "../../models/user/user.models";
 import styles from "../../styles/pages/user/login.module.css"
@@ -13,6 +14,10 @@ const LoginPage = () => {
     username: "",
     password: "",
   })
+
+  React.useEffect(() => {
+    InitialLoginPage()
+  }, [])
 
   const ChangeLoginStateHandler = ( event: React.ChangeEvent<HTMLInputElement> ) => {
     const { name, value } = event.target;
