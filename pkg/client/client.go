@@ -9,6 +9,8 @@ import (
 	"io"
 	"log"
 	"net"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 type Client struct {
@@ -33,6 +35,11 @@ func (c *Client) server(messages chan messagetype.Message) {
 
 			json.Unmarshal(msg.Buffer[:msg.ByfferLength], &message)
 			c.clientIP = message.Content
+		case "server_close":
+			c.Conn.Close()
+			c.Conn = nil
+			// TODO: EventEmit: server_close
+			runtime.EventsEmit(*c.ctx, "server_close", nil)
 		}
 	}
 }
