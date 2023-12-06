@@ -10,7 +10,7 @@ const Loading = ({commend}: Props) => {
   return (
     <Fragment>
       <div className={styles.loading}>
-        <h2>{commend}</h2>
+        <h5>{commend}</h5>
         <div className={styles.loader}></div>
       </div>
     </Fragment>

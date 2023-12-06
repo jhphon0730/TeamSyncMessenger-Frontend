@@ -38,7 +38,6 @@ func (c *Client) server(messages chan messagetype.Message) {
 		case "server_close":
 			c.Conn.Close()
 			c.Conn = nil
-			// TODO: EventEmit: server_close
 			runtime.EventsEmit(*c.ctx, "server_close", nil)
 		}
 	}
