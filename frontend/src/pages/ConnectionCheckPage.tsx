@@ -1,24 +1,32 @@
-import { Fragment, useEffect, useRef, useState } from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from 'react-redux';
-
-import Loading from "../components/common/Loading"
+import { useDispatch, useSelector } from 'react-redux';
 
 import { RunClient } from "../../wailsjs/go/client/Client"
 
+import Loading from "../components/common/Loading"
+
 import { OnlineServerState } from "../actions/serverStateAction";
 import { updateServerStatus } from "../slices/serverStatusSlice";
+import { RootState } from "../store";
 
 const ConnectionCheckPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()  
 
-  const [isConnected, setIsConnected] = useState(false);
+  const serverStatus = useSelector((state: RootState) => state.serverStatus.status);
+  const [isConnected, setIsConnected] = React.useState(false);
    
-  const intervalIdRef = useRef<number | null>(null);
+  const intervalIdRef = React.useRef<number | null>(null);
 
+  // 서버 연결 성공 상태면 뒤로가기
   // 5초마다 서버에 연결 시도
-  useEffect(() => {
+  React.useEffect(() => {
+    if (serverStatus == OnlineServerState) {
+      navigate(-1)
+      return
+    }
+
     intervalIdRef.current = setInterval(() => {
       ConnectToServerHandler();
     }, 5000);
@@ -26,7 +34,7 @@ const ConnectionCheckPage = () => {
   }, []);
 
   // 서버에 연결 성공하면 서버 연결 시도 중지 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isConnected) {
       dispatch(updateServerStatus(OnlineServerState))
       clearInterval(intervalIdRef.current!);
@@ -41,9 +49,9 @@ const ConnectionCheckPage = () => {
   }
 
   return (
-    <Fragment>
+    <React.Fragment>
       { !isConnected && <Loading commend="서버 연결중"/> }
-    </Fragment>
+    </React.Fragment>
   )
 }
 

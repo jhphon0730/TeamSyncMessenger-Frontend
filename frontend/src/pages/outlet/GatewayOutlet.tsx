@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { Outlet, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 
+import { EventsOn } from "../../../wailsjs/runtime/runtime"
 import { InitialGatewayPage } from "../../../wailsjs/go/initial/Initial";
 
 import { RemoveUserCookie } from "../../cookie/cookie";
@@ -18,6 +19,12 @@ const GatewayOutlet = () => {
 
   const [ cookies ] = useCookies(['id', 'username', 'token']);
 
+  // 서버 오프라인 상태 & 서버 종료 문구 로딩 페이지로 이동 
+  EventsOn('server_close', () => {
+    dispatch(updateServerStatus(OfflineServerState))
+    navigate("/")
+  })
+
   React.useEffect(() => {
     InitialGatewayPage()
   }, [])
@@ -30,16 +37,8 @@ const GatewayOutlet = () => {
     } else {
       RemoveUserCookie()
       dispatch(updateServerStatus(OfflineServerState))
-      navigate("/")
     }
   }, [cookies])
-
-  // 서버가 오프라인 메시지를 받는다면 -> Runtime Event
-  // React.useEffect(() => {
-  //   if (serverStatus == OfflineServerState) {
-  //     navigate("/")
-  //   } 
-  // }, [serverStatus])
 
   return (
     <React.Fragment>
