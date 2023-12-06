@@ -3,6 +3,8 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import { InitialRegisterPage } from "../../../wailsjs/go/initial/Initial"
+import { CustomErrorDialog } from "../../../wailsjs/go/main/App";
+import { RegisterUser } from "../../api/user/user.api";
 
 import { userModels } from "../../models/user/user.models";
 import styles from "../../styles/pages/user/login.module.css"
@@ -20,7 +22,7 @@ const RegisterPage = () => {
     InitialRegisterPage()
   }, [])
 
-  const ChangeRegisterStateHandler = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+  const ChangeRegisterStateHandler = ( event: React.ChangeEvent<HTMLInputElement> ): void => {
     const { name, value } = event.target;
 
     setRegisterState((prev) => {
@@ -30,10 +32,15 @@ const RegisterPage = () => {
     });
   };
 
-  const SubmitLoginHandler = ( event: React.FormEvent<HTMLFormElement>) => {
+  const SubmitLoginHandler = async ( event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
 
-    console.log(registerState);
+    if (registerState.username.trim().length == 0 || registerState.password.trim().length == 0 || registerState.password_check!.trim().length == 0 || registerState.email.trim().length == 0) {
+      CustomErrorDialog("모든 정보를 입력하세요.")
+      return
+    }
+
+    await RegisterUser({ username: registerState.username, password: registerState.password, email: registerState.email })
   };
 
   return (
